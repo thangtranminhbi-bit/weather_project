@@ -4,7 +4,7 @@ from datetime import date, timedelta, datetime
 import json
 from google.cloud import bigquery
 import pandas as pd
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="gcp_credentials.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="gcp_credential.json"
 target_date = date.today() - timedelta(days=1)
 url = f'https://api.open-meteo.com/v1/forecast?latitude=10.823&longitude=106.6296&hourly=temperature_2m,relative_humidity_2m&start_date={target_date}&end_date={target_date}'
 res = requests.get(url)
@@ -45,6 +45,6 @@ if res.status_code == 200:
         'weather-project-498116.weather_info.weather_staging',
         job_config= job_config
     )
-
+    job.result()
 else:
     print("API error: ", res.status_code)

@@ -1,0 +1,11 @@
+# Tên này phải trùng với tên profile trong file dbt_project.yml
+Weather_project: 
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: weather-project-498116 # Thay bằng ID thật trên GCP
+      dataset: weather_info    # Thay bằng tên Dataset trên BigQuery
+      threads: 4
+      keyfile: ./gcp_credential.json
+  target: dev

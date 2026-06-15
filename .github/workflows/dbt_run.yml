@@ -1,0 +1,49 @@
+name: Data_Pipeline_Automation
+
+# 1. Khi nào thì chạy?
+on:
+  push:
+    branches: [ main ] # Chạy khi push code mới
+  schedule:
+    - cron: '0 2 * * *' # Tự động chạy vào 2h sáng mỗi ngày (giờ UTC)
+
+jobs:
+  run_pipeline:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Lấy code từ GitHub về máy ảo
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: create GCP Key File
+        working-directory: dbtWeather/Weather_dbt
+        run: |
+          echo "${{ secrets.GCP_WEATHER_SA_KEY }}" | base64 --decode > gcp_credential.json
+      - name: Debug JSON file
+        run: cat dbtWeather/Weather_dbt/gcp_credential.json
+
+      - name: Run API Extraction Script
+        # Kéo dữ liệu từ API
+        run: python main.py
+
+      - name: Run dbt
+        working-directory: dbtWeather/Weather_dbt
+        # Bước này làm sạch dữ liệu
+        run: |
+          dbt deps
+          dbt build --profiles-dir .
+
+          
+
+  
+  

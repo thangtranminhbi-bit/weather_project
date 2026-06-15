@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: bronze_weather
+    description: "Dữ liệu thời tiết đã được làm sạch bề mặt từ BigQuery"
+    columns:
+      - name: weather_timestamp
+        description: "Primary key của bảng"
+        tests:
+          - not_null
+          - unique
+
+      - name: temperature_celsius
+        description: "Nhiệt độ tính theo độ C"
+        tests:
+          - not_null
+
+      - name: temperature_status
+        tests:
+          - accepted_values:
+              values: ['Hot', 'Cool', 'Normal']

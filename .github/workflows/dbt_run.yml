@@ -1,6 +1,6 @@
 name: Data_Pipeline_Automation
 
-# 1. Khi nào thì chạy?
+# Khi nào thì chạy
 on:
   push:
     branches: [ main ] # Chạy khi push code mới
@@ -29,8 +29,6 @@ jobs:
         working-directory: dbtWeather/Weather_dbt
         run: |
           echo "${{ secrets.GCP_WEATHER_SA_KEY }}" | base64 --decode > gcp_credential.json
-      - name: Debug JSON file
-        run: cat dbtWeather/Weather_dbt/gcp_credential.json
 
       - name: Run API Extraction Script
         # Kéo dữ liệu từ API

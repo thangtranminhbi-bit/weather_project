@@ -36,7 +36,7 @@ jobs:
 
       - name: Run dbt
         working-directory: dbtWeather/Weather_dbt
-        # Bước này làm sạch dữ liệu
+        # Bước này làm ktra dữ liệu
         run: |
           dbt build --profiles-dir .
 

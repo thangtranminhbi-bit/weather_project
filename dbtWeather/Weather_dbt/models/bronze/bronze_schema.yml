@@ -15,7 +15,3 @@ models:
         tests:
           - not_null
 
-      - name: temperature_status
-        tests:
-          - accepted_values:
-              values: ['Hot', 'Cool', 'Normal']

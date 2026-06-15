@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: bronze_weather
+  - name: silver_weather
     description: "Dữ liệu thời tiết đã được làm sạch bề mặt từ BigQuery"
     columns:
       - name: weather_timestamp

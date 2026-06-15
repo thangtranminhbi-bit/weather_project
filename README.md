@@ -73,7 +73,8 @@ raw/
 
 └── day=DD/
 
-Sau đó dữ liệu được nạp vào BigQuery Raw Layer.
+Sau đó dữ liệu được nạp vào BigQuery Raw Layer bằng phương pháp Incremental Loading & Upsert Strategy 
+để tránh trùng lặp dữ liệu khi pipeline chạy nhiều lần.
 
 ### 3. Transform
 
@@ -144,6 +145,8 @@ Thông qua dự án này, tôi đã thực hành:
 * Làm việc với REST API.
 * Lưu trữ dữ liệu trên Google Cloud Storage.
 * Xây dựng Data Warehouse bằng BigQuery.
+* Incremental Loading
+* Upsert Strategy bằng BigQuery MERGE
 * Chuyển đổi dữ liệu bằng dbt.
 * Kiểm thử chất lượng dữ liệu.
 * Tự động hóa quy trình bằng GitHub Actions.

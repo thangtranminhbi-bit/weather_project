@@ -51,7 +51,20 @@ OpenWeather API ->Python Extraction -> Google Cloud Storage (Raw Layer) -> BigQu
 * Kiểm thử chất lượng dữ liệu.
 * Tự động hóa toàn bộ pipeline.
 
+## Upsert Strategy
 
+Dự án sử dụng BigQuery MERGE để thực hiện UPSERT.
+
+Logic:
+
+- INSERT khi dữ liệu chưa tồn tại.
+- UPDATE khi dữ liệu đã tồn tại.
+
+Lợi ích:
+
+- Tránh duplicate data.
+- Hỗ trợ pipeline chạy nhiều lần.
+- Giảm chi phí xử lý dữ liệu.
 
 ## Data Flow
 
@@ -73,8 +86,8 @@ raw/
 
 └── day=DD/
 
-Sau đó dữ liệu được nạp vào BigQuery Raw Layer bằng phương pháp Incremental Loading & Upsert Strategy 
-để tránh trùng lặp dữ liệu khi pipeline chạy nhiều lần.
+Sau đó dữ liệu được nạp vào BigQuery Raw Layer.
+
 
 ### 3. Transform
 
@@ -95,7 +108,6 @@ dbt được sử dụng để xây dựng các lớp dữ liệu:
 * Xây dựng bảng phục vụ phân tích.
 * Tổng hợp các chỉ số thời tiết.
 
----
 
 ## Data Quality Testing
 
@@ -111,11 +123,9 @@ Ví dụ:
 
 * ID không được null.
 * Các giá trị thời tiết phải nằm trong danh sách hợp lệ.
-* Quan hệ giữa các bảng phải chính xác.
 
 Pipeline chỉ được xem là thành công khi các bài kiểm thử dữ liệu đều vượt qua.
 
----
 
 ## Automation
 
@@ -133,7 +143,7 @@ Workflow thực hiện:
 Workflow có thể được kích hoạt:
 
 * Theo lịch trình (schedule).
-* Thủ công (khi push code lên github)
+* Khi có sự kiện push lên github repo
 
 
 
@@ -145,14 +155,12 @@ Thông qua dự án này, tôi đã thực hành:
 * Làm việc với REST API.
 * Lưu trữ dữ liệu trên Google Cloud Storage.
 * Xây dựng Data Warehouse bằng BigQuery.
-* Incremental Loading
 * Upsert Strategy bằng BigQuery MERGE
 * Chuyển đổi dữ liệu bằng dbt.
 * Kiểm thử chất lượng dữ liệu.
 * Tự động hóa quy trình bằng GitHub Actions.
 * Quản lý mã nguồn với Git và GitHub.
 
----
 
 ## Future Improvements
 
@@ -162,7 +170,7 @@ Thông qua dự án này, tôi đã thực hành:
 * Triển khai monitoring và alerting.
 * Mở rộng nguồn dữ liệu thời tiết từ nhiều API khác nhau.
 
----
+
 
 ## Author
 

@@ -38,7 +38,6 @@ jobs:
         working-directory: dbtWeather/Weather_dbt
         # Bước này làm sạch dữ liệu
         run: |
-          dbt deps
           dbt build --profiles-dir .
 
           
